@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.parent {
+    width: 95vw;
+    height: 90vh;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: minmax(100px, auto);
+    gap: 8px;
+    padding-left: 17px;
+}
+#glassCard{
+    border: 1px black solid;
+    border-radius: 15px;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.div1 {
+    grid-column: span 3 / span 3;
+    
+}
+
+.div2 {
+    grid-column: span 3 / span 3;
+    grid-column-start: 4;
+    
+}
+
+.div3 {
+    grid-column: span 3 / span 3;
+    grid-column-start: 7;
+}
+
+.div4 {
+    grid-column: span 3 / span 3;
+    grid-column-start: 10;
+}
+
+.div5 {
+    grid-column: span 6 / span 6;
+    grid-row: span 4 / span 4;
+    grid-row-start: 2;
+}
+
+.div6 {
+    grid-column: span 6 / span 6;
+    grid-row: span 3 / span 3;
+    grid-column-start: 7;
+    grid-row-start: 2;
+}
+
+.div7 {
+    grid-column: span 6 / span 6;
+    grid-row: span 2 / span 2;
+    grid-column-start: 7;
+    grid-row-start: 5;
+}
+
+.div8 {
+    grid-column: span 2 / span 2;
+    grid-row-start: 6;
+}
+
+.div9 {
+    grid-column: span 2 / span 2;
+    grid-column-start: 3;
+    grid-row-start: 6;
+}
+
+.div10 {
+    grid-column: span 2 / span 2;
+    grid-column-start: 5;
+    grid-row-start: 6;
+}
+
+.div11 {
+    grid-column: span 12 / span 12;
+    grid-row: span 3 / span 3;
+    grid-row-start: 7;
+}
+        
+.displayTransactionDashboardElements{
+    list-style: none;
+}
