@@ -1,15 +1,27 @@
 //Global Declaration
-let memberData = []
-let transactionData= []
+let memberData = JSON.parse(localStorage.getItem("memberData")) || [];
+let transactionData = JSON.parse(localStorage.getItem("transactionData")) || [];
+
 
 //index html - Variables
+
+
 const totalRevenue = document.getElementById("totalRevenue")
 const totalExpense = document.getElementById("totalExpense")
 const transactionModal = document.getElementById("transactionModal")
 const memberModal = document.getElementById("memberModal")
 const activeMemberCountDisplay = document.getElementById("activeMemberCountDisplay")
+const expiredMembershipModalDashboard = document.getElementById("expiredMembershipModalDashboard")
 const addTransactionBtn = document.getElementById("addTransactionBtn").addEventListener("click" , ()=>{
     transactionModal.show();
+})
+
+const renewMember = document.getElementById("renewMember")
+const expiredMembershipModalDashboardSearch = document.getElementById("expiredMembershipModalDashboardSearch").addEventListener("click",()=>{
+    renewMembership()
+})
+const closeExpiredMembershipModalDashboard = document.getElementById("closeExpiredMembershipModalDashboard").addEventListener("click" , ()=>{
+    expiredMembershipModalDashboard.close()
 })
 const closeTransactionModal = document.getElementById("closeTransactionModal").addEventListener("click" , ()=>{
     transactionModal.close();
@@ -19,6 +31,9 @@ const addMember = document.getElementById("addMember").addEventListener("click" 
 })
 const closeMemberModal = document.getElementById("closeMemberModal").addEventListener("click" , ()=>{
     memberModal.close();
+})
+const renewMembershipBtn = document.getElementById("renewMembershipBtn").addEventListener("click" , ()=>{
+    expiredMembershipModalDashboard.show()
 })
 const saveTransaction = document.getElementById("saveTransaction").addEventListener("click" , ()=>{
     const amount = Number(document.getElementById("transactionAmount").value)
@@ -31,8 +46,8 @@ const saveTransaction = document.getElementById("saveTransaction").addEventListe
         note: note,
         date: new Date().toISOString().split("T")[0]
     };
-    
     transactionData.push(transaction)
+    localStorage.setItem("transactionData",JSON.stringify(transactionData));
     calculateTotalRevenue()
     calculateTotalExpense()
     transactionModal.close()
@@ -80,10 +95,12 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
     }
     else{
         memberData.push(member)
+        localStorage.setItem("memberData" , JSON.stringify(memberData))
         memberModal.close()
         console.log(memberData)
         calculateActiveMembers()
         transactionData.push(transaction)
+        localStorage.setItem("transactionData" , JSON.stringify(transactionData))
         displayTransactionDashboard()
         calculateTotalExpense()
         calculateTotalRevenue()
@@ -98,6 +115,8 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
 
 
 })
+
+
 
 //index html - Functions
 
@@ -157,7 +176,69 @@ function calculateActiveMembers(){
     }
     activeMemberCountDisplay.innerHTML = activeMemberCount
 
-}   
+}
+function renewMembership() {
+    const phone =
+        document.getElementById("expiredMembershipDashboardSearch");
+    const result =
+        document.getElementById("expiredMembershipDashboardResult");
+    result.innerHTML = "";
+    let found = false;
+    for (let i = 0; i < memberData.length; i++) {
+        if (phone.value.trim() === memberData[i].phone) {
+            const nameDisplay = document.createElement("h6");
+            nameDisplay.innerText = memberData[i].name;
+            const inputDisplay = document.createElement("select");
+            const plans = [1, 2, 3, 6, 12];
+            plans.forEach(month => {
+                const option = document.createElement("option");
+                option.value = month;
+                option.textContent =
+                    `${month} Month${month > 1 ? "s" : ""}`;
+                inputDisplay.appendChild(option);
+            });
+            const paidRenewAmount = document.createElement("input")
+            paidRenewAmount.type = "number"
+            paidRenewAmount.placeholder = "Enter paid amount"
+            result.appendChild(nameDisplay);
+            result.appendChild(inputDisplay);
+            result.appendChild(paidRenewAmount);
+            renewMember.addEventListener("click",()=>{
+                const amount = paidRenewAmount.value
+                const transaction = {
+                    id: transactionData.length + 1,
+                    type: "income",
+                    amount: Number(paidRenewAmount.value),
+                    note: `Paid By ${memberData[i].name} Phone number ${memberData[i].phone}`,
+                    date: new Date().toISOString().split("T")[0]
+                }
+                const months = Number(inputDisplay.value)
+                const endDate = new Date(memberData[i].subscription.endDate)
+                endDate.setMonth(endDate.getMonth() + months)
+                memberData[i].subscription.endDate = endDate.toISOString().split("T")[0]
+                transactionData.push(transaction)
+                localStorage.setItem("transactionData" , JSON.stringify(transactionData))
+                localStorage.setItem("memberData" , JSON.stringify(memberData))
+                expiredMembershipModalDashboard.close()
+                calculateActiveMembers();
+                calculateTotalRevenue();
+                calculateTotalExpense();
+                displayTransactionDashboard();
+            })
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        result.innerText = "Not Found";
+    }
+    
+}
 
 
-calculateActiveMembers()
+
+calculateActiveMembers();
+calculateTotalRevenue();
+calculateTotalExpense();
+displayTransactionDashboard();

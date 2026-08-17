@@ -1,0 +1,15 @@
+#memberContainer {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+  gap: 12px;
+}
+#memberContainer div {
+  background-color: rgba(128, 128, 128, 0.305);
+  border: 1px solid black;
+  border-radius: 17px;
+  
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+}
