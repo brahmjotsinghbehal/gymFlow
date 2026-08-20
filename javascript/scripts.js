@@ -104,6 +104,21 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
         displayTransactionDashboard()
         calculateTotalExpense()
         calculateTotalRevenue()
+        const phoneNumber = phone.value.trim();
+
+        const date = new Date(startDate.value);
+
+        const formattedDate = date.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+
+        const message = `Hi ${name.value.trim()}, your gym membership has been successfully registered from ${formattedDate}.`;
+        window.open(
+            `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(message)}`,
+            "_blank"
+        );
         name.value = ""
         email.value = ""
         phone.value =""
@@ -112,6 +127,7 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
         memberPaidAmount.value=""
         startDate.value=""
     }
+    
 
 
 })
