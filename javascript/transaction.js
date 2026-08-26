@@ -8,8 +8,16 @@ function displayTransactions(){
     let n=transactionData.length
     for(let i = n-1;i>=0;i--){
         const transactionListElement = document.createElement("li")
-        transactionListElement.innerHTML=`Amount : ${transactionData[i].amount}  Type : ${transactionData[i].type} Note : ${transactionData[i].note} ` 
+        const deleteButton = document.createElement("button")
+        deleteButton.innerText = "Delete"
+        transactionListElement.innerHTML=`Amount : ${transactionData[i].amount}  Type : ${transactionData[i].type} Note : ${transactionData[i].note} `
+        deleteButton.addEventListener("click" , ()=>{
+            transactionData.splice(i,1)
+            localStorage.setItem("transactionData",JSON.stringify(transactionData))
+            displayTransactions()
+        }) 
         transactionHistoryContainer.appendChild(transactionListElement)
+        transactionHistoryContainer.appendChild(deleteButton)
     }
 }
 displayTransactions()

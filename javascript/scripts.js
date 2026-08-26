@@ -11,10 +11,23 @@ const totalExpense = document.getElementById("totalExpense")
 const transactionModal = document.getElementById("transactionModal")
 const memberModal = document.getElementById("memberModal")
 const activeMemberCountDisplay = document.getElementById("activeMemberCountDisplay")
+const dailyAttendanceCount = document.getElementById("dailyAttendanceCount")
 const expiredMembershipModalDashboard = document.getElementById("expiredMembershipModalDashboard")
+const expectedMembersCount = document.getElementById("expectedMembersCount")
+const progressBarAttendance = document.getElementById("progressBarAttendance")
+const followUpRequiredDashboard = document.getElementById("followUpRequiredDashboard")
+const whatsappConfirmationModal = document.getElementById("whatsappConfirmationModal")
+
+
+
+const addAttendanceCloseButton = document.getElementById("addAttendanceCloseButton").addEventListener("click" , ()=>{
+    addAttendanceModalDashboard.close()
+})
+
 const addTransactionBtn = document.getElementById("addTransactionBtn").addEventListener("click" , ()=>{
     transactionModal.show();
 })
+
 
 const renewMember = document.getElementById("renewMember")
 const expiredMembershipModalDashboardSearch = document.getElementById("expiredMembershipModalDashboardSearch").addEventListener("click",()=>{
@@ -79,13 +92,15 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
         startDate : startDate.value,
         endDate : endDate.toISOString().split("T")[0]
     }
+    let attendanceArray = []
     const member = {
         name : name.value.trim(),
         email : email.value,
         phone : phone.value,
         height : Number(height.value),
         weight : Number(weight.value),
-        subscription : subscription
+        subscription : subscription,
+        attendance : attendanceArray
     }
     if(name.value.trim() ===""){
         alert("Enter valid Name")
@@ -104,21 +119,32 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
         displayTransactionDashboard()
         calculateTotalExpense()
         calculateTotalRevenue()
-        const phoneNumber = phone.value.trim();
 
-        const date = new Date(startDate.value);
+        whatsappConfirmationModal.open()
+        const whatsappModalConfirmButton = document.getElementById("whatsappModalConfirmButton")
+        whatsappModalConfirmButton.addEventListener("click" , ()=>{
+            const phoneNumber = phone.value.trim();
 
-        const formattedDate = date.toLocaleDateString("en-IN", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-        });
+            const date = new Date(startDate.value);
 
-        const message = `Hi ${name.value.trim()}, your gym membership has been successfully registered from ${formattedDate}.`;
-        window.open(
-            `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(message)}`,
-            "_blank"
-        );
+            const formattedDate = date.toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            });
+
+            const message = `Hi ${name.value.trim()}, your gym membership has been successfully registered from ${formattedDate}.`;
+            window.open(
+                `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(message)}`,
+                "_blank"
+            );
+            whatsappConfirmationModal.close()
+        })
+
+        const whatsappModalDeclineButton = document.getElementById("whatsappModalDeclineButton").addEventListener("click" , ()=>{
+            whatsappConfirmationModal.close()
+        })
+
         name.value = ""
         email.value = ""
         phone.value =""
@@ -127,9 +153,6 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
         memberPaidAmount.value=""
         startDate.value=""
     }
-    
-
-
 })
 
 
@@ -191,6 +214,7 @@ function calculateActiveMembers(){
         }
     }
     activeMemberCountDisplay.innerHTML = activeMemberCount
+    return activeMemberCount
 
 }
 function renewMembership() {
@@ -252,9 +276,88 @@ function renewMembership() {
     
 }
 
+const attendanceModalShow = document.getElementById("attendanceModalShow")
+const addAttendanceModalDashboard = document.getElementById("addAttendanceModalDashboard")
+const addAttendanceBtn = document.getElementById("addAttendanceBtn").addEventListener("click", ()=>{
+    addAttendanceModalDashboard.show()
+    const attendanceModalInput = document.getElementById("attendanceModalInput")
+    attendanceModalInput.addEventListener("input",()=>{
+        
+        for(let i = 0;i<memberData.length;i++){
+            if(attendanceModalInput.value.trim().length>0 && memberData[i].phone.startsWith(attendanceModalInput.value.trim())){
+                attendanceModalShow.innerHTML=
+                `<h3>${memberData[i].name}</h3>`
+                const addAttendanceSaveButton = document.getElementById("addAttendanceSaveButton")
+
+                addAttendanceSaveButton.addEventListener("click" , ()=>{
+                    const date = new Date();
+                    memberData[i].attendance.push(date.toISOString().split("T")[0])
+                    localStorage.setItem("memberData" , JSON.stringify(memberData))
+                    addAttendanceModalDashboard.close()
+                    attendanceCount()
+                    return 
+                })
+
+            }
+            else if(attendanceModalInput.value.trim().length===0 && attendanceModalInput.value===""){
+                attendanceModalShow.innerHTML=
+                `Searching...`
+            }
+        }
+    })
+    
+})
+
+function attendanceCount() {
+
+    let attendanceCountVar = 0
+    let totalActiveMembers = calculateActiveMembers()
+
+    const todayDate = new Date().toISOString().split("T")[0];
+
+    for (let i = 0; i < memberData.length; i++) {
+
+        const attendance = memberData[i].attendance || [];
+
+        if (attendance.includes(todayDate)) {
+            attendanceCountVar++;
+        }
+
+    }
+
+    dailyAttendanceCount.innerHTML =
+        `Present Today - ${attendanceCountVar} / ${totalActiveMembers}`;
+    expectedMembersCount.innerHTML =
+        `Expected Today - ${totalActiveMembers - attendanceCountVar}`;
+    
+    let progress = (attendanceCountVar / totalActiveMembers)*100
+    progressBarAttendance.value = progress
+
+}
 
 
+function followUpRequiredDashboardResult(){
+    followUpRequiredDashboard.innerText="EveryThing is up to date"
+    const todayDate = new Date()
+    for(let i = 0;i<memberData.length;i++){
+        const date = new Date(memberData[i].subscription.endDate)
+        
+        if(todayDate>=date){
+            const hello = document.createElement("div")
+            hello.innerHTML = `${memberData[i].name}`
+            followUpRequiredDashboard.append(hello)
+        }
+    }
+}
+
+
+
+
+
+
+followUpRequiredDashboardResult()
 calculateActiveMembers();
 calculateTotalRevenue();
 calculateTotalExpense();
 displayTransactionDashboard();
+attendanceCount()
