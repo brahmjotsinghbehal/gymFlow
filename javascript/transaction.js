@@ -1,5 +1,11 @@
 let memberData = JSON.parse(localStorage.getItem("memberData")) || [];
 let transactionData = JSON.parse(localStorage.getItem("transactionData")) || [];
+const authStatus = localStorage.getItem("authStatus");
+
+if (authStatus === "false") {
+    window.location.href = "login.html";
+    alert("Make sure to login")
+}
 
 const transactionHistoryContainer = document.getElementById("transactionHistoryContainer")
 

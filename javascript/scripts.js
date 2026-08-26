@@ -1,9 +1,13 @@
-//Global Declaration
 let memberData = JSON.parse(localStorage.getItem("memberData")) || [];
 let transactionData = JSON.parse(localStorage.getItem("transactionData")) || [];
+const authStatus = localStorage.getItem("authStatus");
+
+if (authStatus === "false") {
+    window.location.href = "login.html";
+    alert("Make sure to login")
+}
 
 
-//index html - Variables
 
 
 const totalRevenue = document.getElementById("totalRevenue")
@@ -67,15 +71,40 @@ const saveTransaction = document.getElementById("saveTransaction").addEventListe
     displayTransactionDashboard()
 })
 
+const startDate = document.getElementById("memberStartDate")
+startDate.value = new Date().toISOString().split("T")[0]
+
+const memberPaidAmount = document.getElementById("memberPaidAmount")
+const type = document.getElementById("memberSubscriptionType")
+memberPaidAmount.value=1500;
+type.addEventListener("change" , ()=>{
+    if(type.value==="1"){
+    memberPaidAmount.value=1500;
+    }
+    if(type.value==="2"){
+        memberPaidAmount.value=2500;
+    }
+    if(type.value==="3"){
+        memberPaidAmount.value=3500;
+    }
+    if(type.value==="6"){
+        memberPaidAmount.value=4500;
+    }
+    if(type.value==="12"){
+        memberPaidAmount.value=9000;
+    }
+})
+
+
 const saveMember = document.getElementById("saveMember").addEventListener("click" , ()=>{
     const name = document.getElementById("memberName")
     const email = document.getElementById("memberEmail")
     const phone = document.getElementById("memberPhone")
     const height = document.getElementById("memberHeight")
     const weight = document.getElementById("memberWeight")
-    const type = document.getElementById("memberSubscriptionType")
-    const startDate = document.getElementById("memberStartDate")
-    const memberPaidAmount = document.getElementById("memberPaidAmount")
+
+
+
     const start = new Date(startDate.value)
     const endDate = new Date(start);
     endDate.setMonth(endDate.getMonth()+ Number(type.value))
@@ -119,25 +148,22 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
         displayTransactionDashboard()
         calculateTotalExpense()
         calculateTotalRevenue()
+        attendanceCount()
+        const phoneNumber = phone.value.trim();
+        const date = new Date(startDate.value);
+        const formattedDate = date.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+        const message = `Hi ${name.value.trim()}, your gym membership has been successfully registered from ${formattedDate}.`;
+        
 
-        whatsappConfirmationModal.open()
+        whatsappConfirmationModal.show()
         const whatsappModalConfirmButton = document.getElementById("whatsappModalConfirmButton")
         whatsappModalConfirmButton.addEventListener("click" , ()=>{
-            const phoneNumber = phone.value.trim();
-
-            const date = new Date(startDate.value);
-
-            const formattedDate = date.toLocaleDateString("en-IN", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric"
-            });
-
-            const message = `Hi ${name.value.trim()}, your gym membership has been successfully registered from ${formattedDate}.`;
             window.open(
-                `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(message)}`,
-                "_blank"
-            );
+            `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(message)}`,"_blank");
             whatsappConfirmationModal.close()
         })
 
@@ -155,9 +181,6 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
     }
 })
 
-
-
-//index html - Functions
 
 function displayTransactionDashboard(){
     const displayTransactionDashboard = document.getElementById("displayTransactionDashboard")
@@ -264,6 +287,7 @@ function renewMembership() {
                 calculateTotalRevenue();
                 calculateTotalExpense();
                 displayTransactionDashboard();
+                attendanceCount()
             })
             found = true;
             break;
@@ -337,22 +361,28 @@ function attendanceCount() {
 
 
 function followUpRequiredDashboardResult(){
-    followUpRequiredDashboard.innerText="EveryThing is up to date"
+    followUpRequiredDashboard.innerText=""
     const todayDate = new Date()
     for(let i = 0;i<memberData.length;i++){
         const date = new Date(memberData[i].subscription.endDate)
         
         if(todayDate>=date){
+            let x = Math.floor((todayDate-date)/(60*24*60*1000))
+            const followUpMessage = `Hi ${memberData[i].name}, your gym membership had been expired for ${x} days. Kindly renew or cancel your subscription. `;
             const hello = document.createElement("div")
-            hello.innerHTML = `${memberData[i].name}`
+            const whatsapp = document.createElement("button")
+            whatsapp.innerText = "Send Follow-Up";
+            hello.innerHTML = `${memberData[i].name}'s membership has expired ${x} ago send a <a>s</a>`
+            whatsapp.addEventListener("click",()=>{
+                window.open(
+                    `https://wa.me/91${memberData[i].phone}?text=${encodeURIComponent(followUpMessage)}`,"_blank")
+            })
+            hello.appendChild(whatsapp)
             followUpRequiredDashboard.append(hello)
         }
     }
+
 }
-
-
-
-
 
 
 followUpRequiredDashboardResult()
