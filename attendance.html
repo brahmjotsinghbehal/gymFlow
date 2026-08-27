@@ -3,42 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page - GymFlow</title>
+    <title>Attendance - GymFlow</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/attendance.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">GymFlow</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="members.html">Members</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="transaction.html">Transaction</a>
-                </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Settings
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                    <li><a class="dropdown-item" href="login.html"><button>Logout</button></a></li>
-                </ul>
-                </li>
-            </ul>
-            </div>  
+    <!-- TOP NAVBAR -->
+    <nav class="gf-navbar">
+        <div class="gf-navbar-inner">
+            <a class="gf-brand" href="index.html">
+                <div class="brand-mark">G</div>
+                <span>Gym<span>Flow</span></span>
+            </a>
+            
+            <div class="gf-nav-right">
+                <div class="gf-nav-links">
+                    <a href="index.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="members.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        <span>Members</span>
+                    </a>
+                    <a href="transaction.html">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <span>Transactions</span>
+                    </a>
+                </div>
+
+                <div class="gf-nav-divider"></div>
+
+                <div class="dropdown gf-profile-dropdown">
+                    <button class="gf-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="profile-avatar">B</div>
+                        <span class="profile-name">Admin</span>
+                    </button>
+                    <ul class="dropdown-menu gf-dropdown dropdown-menu-end">
+                        <li><a class="dropdown-item" href="profile.html"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="gymManage.html"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item logout-item" href="login.html"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
+
+    <!-- PAGE CONTAINER -->
+    <div class="dashboard-page" style="padding: 28px 32px 60px; max-width: 1440px; margin: auto;">
+        
+        <!-- HERO STRIP -->
+        <div class="page-hero">
+            <div class="hero-left">
+                <div class="page-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    GYMFLOW / ATTENDANCE
+                </div>
+                <h1>Attendance</h1>
+                <p>Track daily member check-ins, batch occupancy, and workout attendance logs.</p>
+            </div>
+
+            <div class="header-decoration">
+                <div class="floating-orb orb-one"></div>
+                <div class="floating-orb orb-two"></div>
+                <div class="header-stat">
+                    <span>DAILY LOG</span>
+                    <strong>GYM<span>FLOW</span></strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 SUMMARY METRICS -->
+        <div class="tx-metrics-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+            <div id="glassCard" style="padding: 18px 22px;">
+                <span class="card-title-text">Present Today</span>
+                <h2 id="attPresentTodayDisplay" style="font-size: 28px; font-weight: 800; color: var(--gf-primary); margin: 4px 0 0;">0</h2>
+            </div>
+            <div id="glassCard" style="padding: 18px 22px;">
+                <span class="card-title-text">Morning Batch</span>
+                <h2 id="attMorningBatchDisplay" style="font-size: 28px; font-weight: 800; color: var(--gf-green); margin: 4px 0 0;">0</h2>
+            </div>
+            <div id="glassCard" style="padding: 18px 22px;">
+                <span class="card-title-text">Evening Batch</span>
+                <h2 id="attEveningBatchDisplay" style="font-size: 28px; font-weight: 800; color: var(--gf-amber); margin: 4px 0 0;">0</h2>
+            </div>
+            <div id="glassCard" style="padding: 18px 22px;">
+                <span class="card-title-text">Active Members</span>
+                <h2 id="attActiveMembersDisplay" style="font-size: 28px; font-weight: 800; color: var(--gf-text); margin: 4px 0 0;">0</h2>
+            </div>
+        </div>
+
+        <!-- SEARCH CONTROLS -->
+        <section class="member-controls">
+            <div class="search-wrapper">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" id="attendanceSearchInput" placeholder="Quick check-in: Search member name or phone...">
+                <span class="search-shortcut">CHECK-IN</span>
+            </div>
+
+            <div class="filter-wrapper">
+                <div class="filter-label">
+                    <span>SESSION</span>
+                </div>
+                <select id="attendanceSessionFilter">
+                    <option value="all">All Sessions</option>
+                    <option value="morning">Morning (6 AM - 12 PM)</option>
+                    <option value="evening">Evening (4 PM - 10 PM)</option>
+                </select>
+                <button class="btn-apply" type="button" onclick="alert('Session filter applied')">Apply</button>
+            </div>
+        </section>
+
+        <!-- SECTION HEADING -->
+        <div class="section-heading" style="margin-top: 32px;">
+            <div>
+                <span class="section-kicker">CHECK-IN ACTIVITY</span>
+                <h2>Today's check-ins</h2>
+            </div>
+            <div class="directory-badge">
+                <span class="status-dot"></span> Live log
+            </div>
+        </div>
+
+        <div id="attendanceContainer" class="attendance-grid">
+            <!-- Dynamic Attendance items -->
+        </div>
+
+    </div>
+
+    <script>
+        (function updateAttendanceMetrics() {
+            try {
+                const members = JSON.parse(localStorage.getItem("memberData")) || [];
+                const today = new Date().toISOString().split("T")[0];
+                let present = 0, active = 0;
+                members.forEach(m => {
+                    if (m.subscription && m.subscription.endDate >= today) active++;
+                    if (m.attendance && m.attendance.includes(today)) present++;
+                });
+                const presEl = document.getElementById("attPresentTodayDisplay");
+                const actEl = document.getElementById("attActiveMembersDisplay");
+                if (presEl) presEl.innerText = present;
+                if (actEl) actEl.innerText = active;
+            } catch(e) {}
+        })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const logoutElements = document.querySelectorAll(".logout-item");
+            logoutElements.forEach(el => {
+                el.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    localStorage.setItem("authStatus", "false");
+                    window.location.href = "login.html";
+                });
+            });
+        });
+    </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="/javascript/scripts.js"></script>
 </html>

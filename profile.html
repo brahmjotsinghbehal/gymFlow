@@ -3,42 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page - GymFlow</title>
+    <title>Profile - GymFlow</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">GymFlow</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="members.html">Members</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="transaction.html">Transaction</a>
-                </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Settings
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                    <li><a class="dropdown-item" href="login.html"><button>Logout</button></a></li>
-                </ul>
-                </li>
-            </ul>
-            </div>  
+    <!-- TOP NAVBAR -->
+    <nav class="gf-navbar">
+        <div class="gf-navbar-inner">
+            <a class="gf-brand" href="index.html">
+                <div class="brand-mark">G</div>
+                <span>Gym<span>Flow</span></span>
+            </a>
+            
+            <div class="gf-nav-right">
+                <div class="gf-nav-links">
+                    <a href="index.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="members.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        <span>Members</span>
+                    </a>
+                    <a href="transaction.html">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <span>Transactions</span>
+                    </a>
+                </div>
+
+                <div class="gf-nav-divider"></div>
+
+                <div class="dropdown gf-profile-dropdown">
+                    <button class="gf-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="profile-avatar">B</div>
+                        <span class="profile-name">Admin</span>
+                    </button>
+                    <ul class="dropdown-menu gf-dropdown dropdown-menu-end">
+                        <li><a class="dropdown-item" href="profile.html"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="gymManage.html"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item logout-item" href="login.html"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
+
+    <!-- PAGE CONTAINER -->
+    <div class="dashboard-page" style="padding: 28px 32px 60px; max-width: 1440px; margin: auto;">
+        
+        <!-- HERO STRIP -->
+        <div class="page-hero">
+            <div class="hero-left">
+                <div class="page-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    GYMFLOW / PROFILE
+                </div>
+                <h1>Admin Profile</h1>
+                <p>Manage administrator credentials, account preferences and session security.</p>
+            </div>
+
+            <div class="header-decoration">
+                <div class="floating-orb orb-one"></div>
+                <div class="floating-orb orb-two"></div>
+                <div class="header-stat">
+                    <span>ADMINISTRATOR</span>
+                    <strong>GYM<span>FLOW</span></strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROFILE LAYOUT -->
+        <div class="profile-layout">
+            <!-- Left: Overview Card -->
+            <div class="profile-overview-card">
+                <div class="profile-avatar-large">B</div>
+                <h3>Brahmjot Singh</h3>
+                <span class="admin-role">GymFlow Administrator</span>
+                <div class="profile-badge-row">
+                    <span class="metric-pill pill-purple"><i class="fa-solid fa-shield-halved"></i> Superadmin</span>
+                    <span class="metric-pill pill-green"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                </div>
+
+                <div class="profile-info-list">
+                    <div class="profile-info-row">
+                        <span>Email</span>
+                        <span>titannovation@gmail.com</span>
+                    </div>
+                    <div class="profile-info-row">
+                        <span>Phone</span>
+                        <span>+91 8525001313</span>
+                    </div>
+                    <div class="profile-info-row">
+                        <span>Member Since</span>
+                        <span>Aug 2026</span>
+                    </div>
+                    <div class="profile-info-row">
+                        <span>Access Level</span>
+                        <span>Full Control</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Edit Form Card -->
+            <div class="profile-edit-card">
+                <div class="profile-edit-header">
+                    <div class="profile-icon-badge"><i class="fa-solid fa-user-pen"></i></div>
+                    <h3>Edit Account Information</h3>
+                </div>
+
+                <div class="member-form" style="margin-top: 10px;">
+                    <div class="form-field">
+                        <label>Full Name</label>
+                        <input type="text" value="Brahmjot Singh">
+                    </div>
+                    <div class="form-field">
+                        <label>Phone Number</label>
+                        <input type="tel" value="8525001313">
+                    </div>
+                    <div class="form-field form-field-full">
+                        <label>Email Address</label>
+                        <input type="email" value="titannovation@gmail.com">
+                    </div>
+                    <div class="form-field">
+                        <label>New Password (Optional)</label>
+                        <input type="password" placeholder="••••••••">
+                    </div>
+                    <div class="form-field">
+                        <label>Confirm Password</label>
+                        <input type="password" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <div class="profile-footer">
+                    <button class="save-member-btn" type="button" onclick="alert('Profile changes saved successfully!')">
+                        <span>Save Profile Changes</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const logoutElements = document.querySelectorAll(".logout-item");
+            logoutElements.forEach(el => {
+                el.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    localStorage.setItem("authStatus", "false");
+                    window.location.href = "login.html";
+                });
+            });
+        });
+    </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="/javascript/scripts.js"></script>
 </html>

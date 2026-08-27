@@ -5,162 +5,504 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page - GymFlow</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">GymFlow</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="members.html">Members</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="transaction.html">Transaction</a>
-                </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Settings
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                    <li><a class="dropdown-item" href="login.html"><button>Logout</button></a></li>
-                </ul>
-                </li>
-            </ul>
-            </div>  
+    <!-- TOP NAVBAR -->
+    <nav class="gf-navbar">
+        <div class="gf-navbar-inner">
+            <a class="gf-brand" href="index.html">
+                <div class="brand-mark">G</div>
+                <span>Gym<span>Flow</span></span>
+            </a>
+            
+            <div class="gf-nav-right">
+                <div class="gf-nav-links">
+                    <a href="index.html" class="active">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="members.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        <span>Members</span>
+                    </a>
+                    <a href="transaction.html">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <span>Transactions</span>
+                    </a>
+                </div>
+
+                <div class="gf-nav-divider"></div>
+
+                <div class="dropdown gf-profile-dropdown">
+                    <button class="gf-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="profile-avatar">B</div>
+                        <span class="profile-name">Admin</span>
+                    </button>
+                    <ul class="dropdown-menu gf-dropdown dropdown-menu-end">
+                        <li><a class="dropdown-item" href="profile.html"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="gymManage.html"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item logout-item" href="login.html"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="parent">
-        <div class="div1"  id="glassCard">
-            Total Reveneue <br> 
-            <h2 id="totalRevenue">₹0</h2>
-            
-        </div>
-        <div class="div2"  id="glassCard">
-            Total Expense <br>
-            <h2 id="totalExpense">₹0</h2>
-        </div>
-        <div class="div3"  id="glassCard">
-            Active Subscription <br>
-            <h2 id="activeMemberCountDisplay">0</h2>
-        </div>
-        <div class="div4"  id="glassCard">
-            Gross Income<br>
-            <h2>₹0</h2>
-        </div>
-        <div class="div5"  id="glassCard">Revenue Vs Expense for </div>
-        <div class="div6"  id="glassCard">
-            Recent Transactions <br>
-            <div>
-                <ul id="displayTransactionDashboard">
-
-                </ul>
-            </div>
+    <!-- HOME PAGE CONTAINER -->
+    <div class="home-container">
         
-        </div>
-        <div class="div7"  id="glassCard">
-            Todays Attendance
-            <div><button id="addAttendanceBtn">Attendance+</button></div>
-            <div id="dailyAttendanceCount"></div>
-            <div id="expectedMembersCount"></div>
-            <progress id="progressBarAttendance" value="0" max="100"></progress>
+        <!-- HERO BANNER STRIP -->
+        <div class="page-hero">
+            <div class="hero-left">
+                <div class="page-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    GYMFLOW / DASHBOARD
+                </div>
+                <h1>Dashboard</h1>
+                <p>Manage your members, finances, attendance, and gym operations from one place.</p>
+            </div>
 
+            <div class="header-decoration">
+                <div class="floating-orb orb-one"></div>
+                <div class="floating-orb orb-two"></div>
+                <div class="header-stat">
+                    <span>DASHBOARD OVERVIEW</span>
+                    <strong>GYM<span>FLOW</span></strong>
+                </div>
+            </div>
         </div>
-        <div class="div8"  id="glassCard">
-            Add Transaction <br>
-            <button id="addTransactionBtn">+ Transaction</button>
+
+        <!-- GRID LAYOUT -->
+        <div class="parent">
+            <!-- ROW 1: 4 METRIC CARDS -->
+            <div class="div1" id="glassCard">
+                <span class="card-title-text">Total Reveneue</span>
+                <h2 id="totalRevenue">₹0</h2>
+            </div>
+
+            <div class="div2" id="glassCard">
+                <span class="card-title-text">Total Expense</span>
+                <h2 id="totalExpense">₹0</h2>
+            </div>
+
+            <div class="div3" id="glassCard">
+                <span class="card-title-text">Active Subscription</span>
+                <h2 id="activeMemberCountDisplay">0</h2>
+            </div>
+
+            <div class="div4" id="glassCard">
+                <span class="card-title-text">Gross Income</span>
+                <h2>₹0</h2>
+            </div>
+
+            <!-- ROW 2: REVENUE VS EXPENSE CHART & RECENT TRANSACTIONS -->
+            <div class="div5" id="glassCard">
+                <div class="chart-header">
+                    <span class="card-title-text">Revenue Vs Expense</span>
+                    <select id="chartFilter" class="chart-select">
+                        <option value="Last 6 months">Last 6 Months</option>
+                        <option value="Last 12 months">Last 12 Months</option>
+                        <option value="All">All Time</option>
+                    </select>
+                </div>
+                <div class="chart-container" style="flex: 1; width: 100%; position: relative; min-height: 180px;">
+                    <canvas id="revenueExpenseChart"></canvas>
+                </div>
+            </div>
+
+            <div class="div6" id="glassCard">
+                <span class="card-title-text">Recent Transactions</span>
+                <div class="transactions-container">
+                    <ul id="displayTransactionDashboard">
+                        <!-- Populated dynamically by scripts.js -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ROW 3: 3 ACTION BUTTONS (LEFT) & TODAY'S ATTENDANCE (RIGHT) -->
+            <div class="div8" id="glassCard">
+                <span class="card-title-text">Add Transaction</span>
+                <button id="addTransactionBtn" class="btn-action-custom">+ Transaction</button>
+            </div>
+
+            <div class="div9" id="glassCard">
+                <span class="card-title-text">Renew Membership</span>
+                <button id="renewMembershipBtn" class="btn-action-custom">+ Renew</button>
+            </div>
+
+            <div class="div10" id="glassCard">
+                <span class="card-title-text">Add Member</span>
+                <button id="addMember" class="btn-action-custom">+ Member</button>
+            </div>
+
+            <div class="div7" id="glassCard">
+                <div class="att-card-inner">
+                    <div class="att-card-left">
+                        <span class="card-title-text">Today's Attendance</span>
+                        <div class="att-counts-row">
+                            <div id="dailyAttendanceCount" class="attendance-stat">Present Today: <strong>0 / 0</strong></div>
+                            <span class="att-divider">•</span>
+                            <div id="expectedMembersCount" class="attendance-sub">Expected: <strong>0</strong></div>
+                        </div>
+                        <progress id="progressBarAttendance" value="0" max="100" class="attendance-progress"></progress>
+                    </div>
+                    <div class="att-card-right">
+                        <button id="addAttendanceBtn" class="btn-action-custom">
+                            <i class="fa-solid fa-plus me-1"></i> Attendance
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 4: FOLLOW UPS REQUIRED (FULL WIDTH BOTTOM) -->
+            <div class="div11" id="glassCard">
+                <span class="card-title-text">Follow Ups Required</span>
+                <div id="followUpRequiredDashboard" class="follow-ups-container">
+                    <!-- Populated dynamically by scripts.js -->
+                </div>
+            </div>
         </div>
-        <div class="div9"  id="glassCard">
-            Renew Membership <br>
-            <button id="renewMembershipBtn">+ Renew</button>
-        </div>
-        <div class="div10" id="glassCard">
-            Add Member <br>
-            <button id="addMember">+ Member</button>
-        </div>
-        <div class="div11" id="glassCard">Follow Ups Required
-            <div id="followUpRequiredDashboard"></div>
-        </div>
+
     </div>
     
-    <dialog id="transactionModal">
+    <!-- DIALOG MODALS -->
+    <!-- Add Transaction Modal -->
+    <dialog id="transactionModal" class="gf-modal">
+        <div class="modal-content-gf">
+            <div class="modal-header-gf">
+                <div>
+                    <span class="modal-kicker">FINANCE RECORD</span>
+                    <h2>Add Transaction</h2>
+                    <p>Enter the payment details for income or expense.</p>
+                </div>
+                <button id="closeTransactionModal" class="modal-close" type="button">&times;</button>
+            </div>
 
-        <h2>Add Transaction</h2>
+            <div class="member-form">
+                <div class="form-field form-field-full">
+                    <label>Amount <span>(₹)</span></label>
+                    <input id="transactionAmount" type="number" placeholder="Enter amount (e.g. 1500)">
+                </div>
 
-        <input id="transactionAmount" type="number" placeholder="Amount">
+                <div class="form-field form-field-full">
+                    <label>Transaction Type</label>
+                    <select id="transactionType">
+                        <option value="income">Income (Member Fees, Sales)</option>
+                        <option value="expense">Expense (Rent, Maintenance, Bills)</option>
+                    </select>
+                </div>
 
-        <select id="transactionType">
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-        </select>
+                <div class="form-field form-field-full">
+                    <label>Note / Description</label>
+                    <input id="transactionNote" type="text" placeholder="Add note or member details">
+                </div>
+            </div>
 
-        <input id="transactionNote" type="text" placeholder="Note">
-
-        <button id="saveTransaction">Save</button>
-        <button id="closeTransactionModal">Cancel</button>
-
-    </dialog>
-
-    <dialog id="memberModal">
-
-        <h2>Add Member</h2>
-
-        <input id="memberName" type="text" placeholder="Enter Name" required>
-        <input id="memberEmail" type="email" placeholder="Enter Email">
-        <input id="memberPhone" type="tel" placeholder="Enter Phone Number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-        <input id="memberHeight" type="number" placeholder="Enter Height">
-        <input id="memberWeight" type="number" placeholder="Enter Weight">
-        <select id="memberSubscriptionType">
-            <option value="1">1 Month</option>
-            <option value="2">2 Month</option>
-            <option value="3">3 Month</option>
-            <option value="6">6 Month</option>
-            <option value="12">Yearly</option>
-        </select>
-        <input id="memberStartDate" type="date" placeholder="Enter Start Date">
-        <input id="memberPaidAmount" type="number" placeholder="Enter the Paid Amount">
-        <button id="saveMember">Save</button>
-        <button id="closeMemberModal">Cancel</button>
-
-    </dialog>
-
-    <dialog id="expiredMembershipModalDashboard">
-        <input id="expiredMembershipDashboardSearch" type="text" placeholder="Enter Phone Number or Email">
-        <div id="expiredMembershipDashboardResult">
-            Member Not Found
+            <div class="modal-footer-gf">
+                <button id="saveTransaction" class="save-member-btn" type="button">
+                    <span>Save Transaction</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
-        <button id="expiredMembershipModalDashboardSearch">search</button>
-        <button id="renewMember">Renew</button>
-        <button id="closeExpiredMembershipModalDashboard">Cancel</button>
     </dialog>
 
+    <!-- Add Member Modal -->
+    <dialog id="memberModal" class="gf-modal">
+        <div class="modal-content-gf">
+            <div class="modal-header-gf">
+                <div>
+                    <span class="modal-kicker">MEMBERSHIP DIRECTORY</span>
+                    <h2>Add Member</h2>
+                    <p>Register a new member to GymFlow.</p>
+                </div>
+                <button id="closeMemberModal" class="modal-close" type="button">&times;</button>
+            </div>
 
-    <dialog id="addAttendanceModalDashboard">
-        <input type="text" id="attendanceModalInput" placeholder="Enter Valid Phone Number : ">
-        <div id="attendanceModalShow">
-            No Result Found
+            <div class="member-form">
+                <div class="form-field">
+                    <label>Full Name</label>
+                    <input id="memberName" type="text" placeholder="Enter full name" required>
+                </div>
+                <div class="form-field">
+                    <label>Email Address</label>
+                    <input id="memberEmail" type="email" placeholder="Enter email address">
+                </div>
+                <div class="form-field form-field-full">
+                    <label>Phone Number</label>
+                    <input id="memberPhone" type="tel" placeholder="e.g. 9876543210" required>
+                </div>
+                <div class="form-field input-with-unit">
+                    <label>Height</label>
+                    <input id="memberHeight" type="number" placeholder="Height">
+                    <span>cm</span>
+                </div>
+                <div class="form-field input-with-unit">
+                    <label>Weight</label>
+                    <input id="memberWeight" type="number" placeholder="Weight">
+                    <span>kg</span>
+                </div>
+                <div class="form-field">
+                    <label>Subscription Duration</label>
+                    <select id="memberSubscriptionType">
+                        <option value="1">1 Month Plan</option>
+                        <option value="2">2 Month Plan</option>
+                        <option value="3">3 Month Plan</option>
+                        <option value="6">6 Month Plan</option>
+                        <option value="12">1 Year Plan</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>Start Date</label>
+                    <input id="memberStartDate" type="date">
+                </div>
+                <div class="form-field form-field-full input-with-unit">
+                    <label>Paid Amount</label>
+                    <input id="memberPaidAmount" type="number" placeholder="Enter paid amount" value="1500">
+                    <span>₹</span>
+                </div>
+            </div>
+
+            <div class="modal-footer-gf">
+                <button id="saveMember" class="save-member-btn" type="button">
+                    <span>Save Member</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
-        <button id="addAttendanceSaveButton">Mark Present</button>
-        <button id="addAttendanceCloseButton">Close</button>
     </dialog>
 
-    <dialog id="whatsappConfirmationModal">
+    <!-- Expired Membership / Renew Modal -->
+    <dialog id="expiredMembershipModalDashboard" class="gf-modal">
+        <div class="modal-content-gf">
+            <div class="modal-header-gf">
+                <div>
+                    <span class="modal-kicker">SUBSCRIPTION RENEWAL</span>
+                    <h2>Renew Membership</h2>
+                    <p>Search member by phone number or email to renew plan.</p>
+                </div>
+                <button id="closeExpiredMembershipModalDashboard" class="modal-close" type="button">&times;</button>
+            </div>
 
-        Do You want to send Whatsapp message?
-        <button id="whatsappModalConfirmButton">Yes</button>
-        <button id="whatsappModalDeclineButton">No</button>
+            <div class="member-form">
+                <div class="form-field form-field-full">
+                    <label>Search Member</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input id="expiredMembershipDashboardSearch" type="text" placeholder="Enter Phone Number or Email">
+                        <button id="expiredMembershipModalDashboardSearch" class="btn-action-custom" type="button" style="height: 46px; padding: 0 16px;">
+                            Search
+                        </button>
+                    </div>
+                </div>
 
+                <div class="form-field form-field-full">
+                    <div id="expiredMembershipDashboardResult" class="renew-result-box">
+                        Search for a member above
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer-gf">
+                <button id="renewMember" class="save-member-btn" type="button">
+                    <span>Renew Membership</span>
+                    <i class="fa-solid fa-rotate"></i>
+                </button>
+            </div>
+        </div>
     </dialog>
+
+    <!-- Add Attendance Modal -->
+    <dialog id="addAttendanceModalDashboard" class="gf-modal">
+        <div class="modal-content-gf">
+            <div class="modal-header-gf">
+                <div>
+                    <span class="modal-kicker">DAILY ATTENDANCE</span>
+                    <h2>Mark Attendance</h2>
+                    <p>Enter member phone number to mark present today.</p>
+                </div>
+                <button id="addAttendanceCloseButton" class="modal-close" type="button">&times;</button>
+            </div>
+
+            <div class="member-form">
+                <div class="form-field form-field-full">
+                    <label>Member Phone</label>
+                    <input type="text" id="attendanceModalInput" placeholder="Enter phone number (e.g. 9876543210)">
+                </div>
+                <div class="form-field form-field-full">
+                    <div id="attendanceModalShow" class="renew-result-box">
+                        Search for a member above
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer-gf">
+                <button id="addAttendanceSaveButton" class="save-member-btn" type="button">
+                    <span>Mark Present</span>
+                    <i class="fa-solid fa-check"></i>
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- WhatsApp Confirmation Modal -->
+    <dialog id="whatsappConfirmationModal" class="gf-modal">
+        <div class="modal-content-gf" style="text-align: center;">
+            <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(37, 211, 102, 0.14); color: #25d366; font-size: 28px; display: grid; place-items: center; margin: 0 auto 16px;">
+                <i class="fa-brands fa-whatsapp"></i>
+            </div>
+            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Send WhatsApp Welcome?</h2>
+            <p style="color: var(--gf-muted); font-size: 13.5px; margin-bottom: 24px;">Do you want to send a registration confirmation message to the member on WhatsApp?</p>
+            <div style="display: flex; justify-content: center; gap: 12px;">
+                <button id="whatsappModalDeclineButton" class="btn-clear" style="height: 44px; padding: 0 20px;" type="button">Skip</button>
+                <button id="whatsappModalConfirmButton" class="save-member-btn" style="height: 44px; padding: 0 20px; background: linear-gradient(135deg, #25d366, #128c7e);" type="button">
+                    <i class="fa-brands fa-whatsapp me-1"></i> Send Message
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="javascript/scripts.js"></script>
+    <script>
+        // Interactive Chart.js Initialization
+        (function initDashboardChart() {
+            let chartInstance = null;
+
+            function renderChart() {
+                const canvas = document.getElementById("revenueExpenseChart");
+                if (!canvas) return;
+                const ctx = canvas.getContext("2d");
+                if (!ctx) return;
+
+                const transactionData = JSON.parse(localStorage.getItem("transactionData")) || [];
+                const filterSelect = document.getElementById("chartFilter");
+                const filterValue = filterSelect ? filterSelect.value : "Last 6 months";
+
+                let numMonths = 6;
+                if (filterValue === "Last 12 months") numMonths = 12;
+                if (filterValue === "All") numMonths = 24;
+
+                const labels = [];
+                const revenueData = [];
+                const expenseData = [];
+
+                const now = new Date();
+                for (let i = numMonths - 1; i >= 0; i--) {
+                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                    const monthName = d.toLocaleDateString("en-US", { month: "short" });
+                    labels.push(monthName);
+
+                    let rev = 0, exp = 0;
+                    transactionData.forEach(t => {
+                        if (t.date && t.date.startsWith(monthKey)) {
+                            const amt = Number(t.amount) || 0;
+                            if (t.type === "income") rev += amt;
+                            if (t.type === "expense") exp += amt;
+                        }
+                    });
+                    revenueData.push(rev);
+                    expenseData.push(exp);
+                }
+
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                const revGrad = ctx.createLinearGradient(0, 0, 0, 180);
+                revGrad.addColorStop(0, "rgba(99, 91, 255, 0.25)");
+                revGrad.addColorStop(1, "rgba(99, 91, 255, 0.0)");
+
+                const expGrad = ctx.createLinearGradient(0, 0, 0, 180);
+                expGrad.addColorStop(0, "rgba(224, 82, 82, 0.20)");
+                expGrad.addColorStop(1, "rgba(224, 82, 82, 0.0)");
+
+                chartInstance = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: "Revenue",
+                                data: revenueData,
+                                borderColor: "#635bff",
+                                backgroundColor: revGrad,
+                                fill: true,
+                                tension: 0.35,
+                                borderWidth: 2.5,
+                                pointRadius: 4,
+                                pointBackgroundColor: "#635bff"
+                            },
+                            {
+                                label: "Expense",
+                                data: expenseData,
+                                borderColor: "#e05252",
+                                backgroundColor: expGrad,
+                                fill: true,
+                                tension: 0.35,
+                                borderWidth: 2.5,
+                                pointRadius: 4,
+                                pointBackgroundColor: "#e05252"
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: "top",
+                                align: "end",
+                                labels: {
+                                    boxWidth: 10,
+                                    boxHeight: 10,
+                                    usePointStyle: true,
+                                    font: { family: "Plus Jakarta Sans, sans-serif", size: 11, weight: "600" }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: "rgba(23, 26, 43, 0.95)",
+                                padding: 10,
+                                titleFont: { family: "Plus Jakarta Sans, sans-serif", size: 12, weight: "700" },
+                                bodyFont: { family: "Plus Jakarta Sans, sans-serif", size: 12 },
+                                callbacks: {
+                                    label: function(c) {
+                                        return `${c.dataset.label}: ₹${Number(c.raw || 0).toLocaleString('en-IN')}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { family: "Plus Jakarta Sans, sans-serif", size: 11 } }
+                            },
+                            y: {
+                                grid: { color: "#f0f1f7" },
+                                ticks: {
+                                    font: { family: "Plus Jakarta Sans, sans-serif", size: 11 },
+                                    callback: function(v) {
+                                        return v >= 1000 ? `₹${v/1000}k` : `₹${v}`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            window.addEventListener("DOMContentLoaded", renderChart);
+            renderChart();
+
+            const f = document.getElementById("chartFilter");
+            if (f) f.addEventListener("change", renderChart);
+        })();
+    </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="/javascript/scripts.js"></script>
 </html>
