@@ -8,8 +8,6 @@ if (authStatus === "false") {
 }
 
 
-
-
 const totalRevenue = document.getElementById("totalRevenue")
 const totalExpense = document.getElementById("totalExpense")
 const transactionModal = document.getElementById("transactionModal")
@@ -53,9 +51,23 @@ const renewMembershipBtn = document.getElementById("renewMembershipBtn").addEven
     expiredMembershipModalDashboard.show()
 })
 const saveTransaction = document.getElementById("saveTransaction").addEventListener("click" , ()=>{
-    const amount = Number(document.getElementById("transactionAmount").value)
+    const amount = document.getElementById("transactionAmount").value
     const type = document.getElementById("transactionType").value
     const note = document.getElementById("transactionNote").value.trim()
+    if (amount === "" || note === "") {
+        alert("Please fill in all the fields.")
+        return;
+    }
+    const amountPattern = /^[1-9]\d*$/;
+    if (amount <= 0 || !amountPattern.test(amount)) {
+        alert("Please enter a valid positive amount.");
+        return;
+    }
+   const notePattern = /^[A-Za-z][A-Za-z0-9]{19,49}$/;
+   if (!notePattern.test(note)) {
+        alert("Please enter a valid note. The note should start with a letter and be between 20 to 50 characters long, containing only letters and numbers.");
+        return;
+    }
     const transaction = {
         id: transactionData.length + 1,
         type: type,
@@ -103,8 +115,30 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
     const height = document.getElementById("memberHeight")
     const weight = document.getElementById("memberWeight")
 
-
-
+    if (name.value.trim() === "" || email.value.trim() === "" || phone.value.trim() === "" || height.value.trim() === "" || weight.value.trim() === "") {
+        alert("Please fill in all the fields.");
+        return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email.value)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+    const phonePattern = /^[6-9]\d{9}$/;
+    if (!phonePattern.test(phone.value)) {
+        alert("Please enter a valid phone number.");
+        return;
+    }
+    const heightPattern = /^[1-9]\d*$/;
+    if (!heightPattern.test(height.value) || Number(height) < 50 || Number(height) > 250) {
+        alert("Please enter a valid positive height.");
+        return;
+    }
+    const weightPattern = /^[1-9]\d*$/;
+    if (!weightPattern.test(weight.value) || Number(weight) < 20 || Number(weight) > 300) {
+        alert("Please enter a valid positive weight.");
+        return;
+    }
     const start = new Date(startDate.value)
     const endDate = new Date(start);
     endDate.setMonth(endDate.getMonth()+ Number(type.value))
