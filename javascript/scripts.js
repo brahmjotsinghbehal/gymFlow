@@ -63,11 +63,6 @@ const saveTransaction = document.getElementById("saveTransaction").addEventListe
         alert("Please enter a valid positive amount.");
         return;
     }
-   const notePattern = /^[A-Za-z][A-Za-z0-9]{19,49}$/;
-   if (!notePattern.test(note)) {
-        alert("Please enter a valid note. The note should start with a letter and be between 20 to 50 characters long, containing only letters and numbers.");
-        return;
-    }
     const transaction = {
         id: transactionData.length + 1,
         type: type,
@@ -130,12 +125,12 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
         return;
     }
     const heightPattern = /^[1-9]\d*$/;
-    if (!heightPattern.test(height.value) || Number(height) < 50 || Number(height) > 250) {
+    if (!heightPattern.test(height.value) || Number(height.value) < 50 || Number(height.value) > 250) {
         alert("Please enter a valid positive height.");
         return;
     }
     const weightPattern = /^[1-9]\d*$/;
-    if (!weightPattern.test(weight.value) || Number(weight) < 20 || Number(weight) > 300) {
+    if (!weightPattern.test(weight.value) || Number(weight.value) < 20 || Number(weight.value) > 300) {
         alert("Please enter a valid positive weight.");
         return;
     }
@@ -245,7 +240,7 @@ function calculateTotalRevenue(){
     let revenue = 0;
     for(let i = 0;i<transactionData.length;i++){
         if(transactionData[i].type==="income"){
-            revenue+=transactionData[i].amount
+            revenue+=Number(transactionData[i].amount)
         }
     }
     totalRevenue.innerHTML=`₹${revenue}`
@@ -275,10 +270,13 @@ function calculateActiveMembers(){
 
 }
 function renewMembership() {
-    const phone =
-        document.getElementById("expiredMembershipDashboardSearch");
-    const result =
-        document.getElementById("expiredMembershipDashboardResult");
+    const phone = document.getElementById("expiredMembershipDashboardSearch");
+    const phonePattern = /^[6-9]\d{9}$/;
+    if (!phonePattern.test(phone.value.trim())) {
+        alert("Please enter a valid phone number.");
+        return;
+    }
+    const result = document.getElementById("expiredMembershipDashboardResult");
     result.innerHTML = "";
     let found = false;
     for (let i = 0; i < memberData.length; i++) {
@@ -343,8 +341,7 @@ const addAttendanceBtn = document.getElementById("addAttendanceBtn").addEventLis
         
         for(let i = 0;i<memberData.length;i++){
             if(attendanceModalInput.value.trim().length>0 && memberData[i].phone.startsWith(attendanceModalInput.value.trim())){
-                attendanceModalShow.innerHTML=
-                `<h3>${memberData[i].name}</h3>`
+                attendanceModalShow.innerHTML= `<h3>${memberData[i].name}</h3>`
                 const addAttendanceSaveButton = document.getElementById("addAttendanceSaveButton")
 
                 addAttendanceSaveButton.addEventListener("click" , ()=>{

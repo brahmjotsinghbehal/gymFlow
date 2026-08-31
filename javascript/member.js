@@ -8,7 +8,7 @@ if (authStatus === "false") {
 }
 const memberFilterValue = document.getElementById("memberFilterValue")
 const memberSearchInput = document.getElementById("memberSearchInput")
-const memberContainer=document.getElementById("memberContainer")
+const memberContainer = document.getElementById("memberContainer")
 const memberEditModal = document.getElementById("memberEditModal")
 const memberInfoDisplayModal = document.getElementById("memberInfoDisplayModal")
 
@@ -161,9 +161,31 @@ function makeMemberDisplayCard(i) {
         memberEditModalWeight.value = memberData[i].weight
         memberEditModalHeight.value = memberData[i].height
         memberEditModalSaveBtn.addEventListener("click" , ()=>{
+
+            const phone = memberEditModalPhone.value.trim();
+            if (!checkPhone(phone)) {
+                memberEditModalPhone.focus();
+                return;
+            }
+            const email = memberEditModalEmail.value.trim();
+            if (!checkEmail(email)) {
+                memberEditModalEmail.focus();
+                return;
+            }
+            const height = memberEditModalHeight.value.trim();
+            if (!checkHeight(height)) {
+                memberEditModalHeight.focus();
+                return;
+            }
+            const weight = memberEditModalWeight.value.trim();
+            if (!checkWeight(weight)) {
+                memberEditModalWeight.focus();
+                return;
+            }
+
             memberData[i].name = memberEditModalName.value
             memberData[i].phone = memberEditModalPhone.value
-            memberData[i].email =memberEditModalEmail.value
+            memberData[i].email = memberEditModalEmail.value
             memberData[i].weight = memberEditModalWeight.value
             memberData[i].height = memberEditModalHeight.value
             localStorage.setItem("memberData" , JSON.stringify(memberData))
@@ -182,5 +204,41 @@ function makeMemberDisplayCard(i) {
     memberDetailsContainer.appendChild(memberEditButton);
     memberDetailsContainer.appendChild(memberDetailsButton);
     return memberDetailsContainer;
+}
+
+function checkPhone(phone){
+    const phonePattern = /^[6-9]\d{9}$/;
+    if (phone === "" || !phonePattern.test(phone)) {
+        alert("Please enter a valid phone number");
+        return false;
+    }
+    return true;
+}
+
+function checkEmail(email){
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email === "" || !emailPattern.test(email)) {
+        alert("Please enter a valid email address");
+        return false;
+    }
+    return true;
+}
+
+function checkHeight(height){
+    const heightPattern = /^[1-9]\d*$/;
+    if (height === "" || !heightPattern.test(height) || Number(height) < 50 || Number(height) > 250) {
+        alert("Please enter a valid height");
+        return false;
+    }
+    return true;
+}
+
+function checkWeight(weight){
+    const weightPattern = /^[1-9]\d*$/;
+    if (weight === "" || !weightPattern.test(weight) || Number(weight) < 20 || Number(weight) > 300) {
+        alert("Please enter a valid weight");
+        return false;
+    }
+    return true;
 }
 memberDisplay()
