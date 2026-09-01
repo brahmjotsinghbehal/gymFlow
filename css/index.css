@@ -324,12 +324,13 @@
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 8px;
-    max-height: 85px;
-    overflow-y: auto;
+    max-height: auto;
+    /* overflow-y: auto; */
 }
 
 .follow-up-item,
 #followUpRequiredDashboard > div {
+    width: 100%;
     background: #f8f9fc;
     border: 1px solid #e5e8f2;
     border-radius: 10px;
@@ -340,6 +341,7 @@
     font-size: 13px;
     text-transform: none;
     letter-spacing: normal;
+    justify-content: space-between;
 }
 
 #followUpRequiredDashboard button {

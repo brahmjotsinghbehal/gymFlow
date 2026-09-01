@@ -73,7 +73,7 @@ body:has(#transactionHistoryContainer) .dashboard-card {
 /* GRID LIST LAYOUT FOR 1-LINE BUBBLE TRANSACTIONS */
 #transactionHistoryContainer {
     list-style: none;
-    padding: 0;
+    padding: 5;
     margin: 0;
     display: grid;
     grid-template-columns: 1fr auto;

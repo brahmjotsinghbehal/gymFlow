@@ -20,7 +20,7 @@
             
             <div class="gf-nav-right">
                 <div class="gf-nav-links">
-                    <a href="index.html" class="active">
+                    <a href="dashboard.html" class="active">
                         <i class="fa-solid fa-house"></i>
                         <span>Home</span>
                     </a>
@@ -45,7 +45,7 @@
                         <li><a class="dropdown-item" href="profile.html"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
                         <li><a class="dropdown-item" href="gymManage.html"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item logout-item" href="login.html"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Logout</a></li>
+                        <li><a class="dropdown-item logout-item" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -96,7 +96,7 @@
 
             <div class="div4" id="glassCard">
                 <span class="card-title-text">Gross Income</span>
-                <h2 id="grossIncomeCount">₹0</h2>
+                <h2>₹0</h2>
             </div>
 
             <!-- ROW 2: REVENUE VS EXPENSE CHART & RECENT TRANSACTIONS -->
@@ -162,7 +162,7 @@
             <div class="div11" id="glassCard">
                 <span class="card-title-text">Follow Ups Required</span>
                 <div id="followUpRequiredDashboard" class="follow-ups-container">
-                    <!-- Populated dynamically by scripts.js -->
+                    <!-- Populated dynamically -->
                 </div>
             </div>
         </div>
@@ -203,7 +203,7 @@
             </div>
 
             <div class="modal-footer-gf">
-                <button id="saveTransaction" class="save-member-btn" type="button">
+                <button id="saveTransaction" class="save-member-btn">
                     <span>Save Transaction</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
@@ -238,12 +238,12 @@
                 </div>
                 <div class="form-field input-with-unit">
                     <label>Height</label>
-                    <input id="memberHeight" type="text" placeholder="Height">
+                    <input id="memberHeight" type="number" placeholder="Height">
                     <span>cm</span>
                 </div>
                 <div class="form-field input-with-unit">
                     <label>Weight</label>
-                    <input id="memberWeight" type="text" placeholder="Weight">
+                    <input id="memberWeight" type="number" placeholder="Weight">
                     <span>kg</span>
                 </div>
                 <div class="form-field">
@@ -262,13 +262,13 @@
                 </div>
                 <div class="form-field form-field-full input-with-unit">
                     <label>Paid Amount</label>
-                    <input id="memberPaidAmount" type="number" placeholder="Enter paid amount" value="1500">
+                    <input id="memberPaidAmount" type="number" placeholder="Enter paid amount">
                     <span>₹</span>
                 </div>
             </div>
 
             <div class="modal-footer-gf">
-                <button id="saveMember" class="save-member-btn" type="button">
+                <button id="saveMember" class="save-member-btn">
                     <span>Save Member</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
@@ -292,7 +292,7 @@
                 <div class="form-field form-field-full">
                     <label>Search Member</label>
                     <div style="display: flex; gap: 8px;">
-                        <input id="expiredMembershipDashboardSearch" type="text" placeholder="Enter Phone Number">
+                        <input id="expiredMembershipDashboardSearch" type="text" placeholder="Enter Phone Number or Email">
                         <button id="expiredMembershipModalDashboardSearch" class="btn-action-custom" type="button" style="height: 46px; padding: 0 16px;">
                             Search
                         </button>
@@ -307,7 +307,7 @@
             </div>
 
             <div class="modal-footer-gf">
-                <button id="renewMember" class="save-member-btn" type="button">
+                <button id="renewMember" class="save-member-btn">
                     <span>Renew Membership</span>
                     <i class="fa-solid fa-rotate"></i>
                 </button>
@@ -330,7 +330,7 @@
             <div class="member-form">
                 <div class="form-field form-field-full">
                     <label>Member Phone</label>
-                    <input type="text" id="attendanceModalInput" placeholder="Enter phone number">
+                    <input type="text" id="attendanceModalInput" placeholder="Enter phone number (e.g. 9876543210)">
                 </div>
                 <div class="form-field form-field-full">
                     <div id="attendanceModalShow" class="renew-result-box">
@@ -368,141 +368,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="javascript/scripts.js"></script>
-    <script>
-        // Interactive Chart.js Initialization
-        (function initDashboardChart() {
-            let chartInstance = null;
-
-            function renderChart() {
-                const canvas = document.getElementById("revenueExpenseChart");
-                if (!canvas) return;
-                const ctx = canvas.getContext("2d");
-                if (!ctx) return;
-
-                const transactionData = JSON.parse(localStorage.getItem("transactionData")) || [];
-                const filterSelect = document.getElementById("chartFilter");
-                const filterValue = filterSelect ? filterSelect.value : "Last 6 months";
-
-                let numMonths = 6;
-                if (filterValue === "Last 12 months") numMonths = 12;
-                if (filterValue === "All") numMonths = 24;
-
-                const labels = [];
-                const revenueData = [];
-                const expenseData = [];
-
-                const now = new Date();
-                for (let i = numMonths - 1; i >= 0; i--) {
-                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-                    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-                    const monthName = d.toLocaleDateString("en-US", { month: "short" });
-                    labels.push(monthName);
-
-                    let rev = 0, exp = 0;
-                    transactionData.forEach(t => {
-                        if (t.date && t.date.startsWith(monthKey)) {
-                            const amt = Number(t.amount) || 0;
-                            if (t.type === "income") rev += amt;
-                            if (t.type === "expense") exp += amt;
-                        }
-                    });
-                    revenueData.push(rev);
-                    expenseData.push(exp);
-                }
-
-                if (chartInstance) {
-                    chartInstance.destroy();
-                }
-
-                const revGrad = ctx.createLinearGradient(0, 0, 0, 180);
-                revGrad.addColorStop(0, "rgba(99, 91, 255, 0.25)");
-                revGrad.addColorStop(1, "rgba(99, 91, 255, 0.0)");
-
-                const expGrad = ctx.createLinearGradient(0, 0, 0, 180);
-                expGrad.addColorStop(0, "rgba(224, 82, 82, 0.20)");
-                expGrad.addColorStop(1, "rgba(224, 82, 82, 0.0)");
-
-                chartInstance = new Chart(ctx, {
-                    type: "line",
-                    data: {
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: "Revenue",
-                                data: revenueData,
-                                borderColor: "#635bff",
-                                backgroundColor: revGrad,
-                                fill: true,
-                                tension: 0.35,
-                                borderWidth: 2.5,
-                                pointRadius: 4,
-                                pointBackgroundColor: "#635bff"
-                            },
-                            {
-                                label: "Expense",
-                                data: expenseData,
-                                borderColor: "#e05252",
-                                backgroundColor: expGrad,
-                                fill: true,
-                                tension: 0.35,
-                                borderWidth: 2.5,
-                                pointRadius: 4,
-                                pointBackgroundColor: "#e05252"
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: "top",
-                                align: "end",
-                                labels: {
-                                    boxWidth: 10,
-                                    boxHeight: 10,
-                                    usePointStyle: true,
-                                    font: { family: "Plus Jakarta Sans, sans-serif", size: 11, weight: "600" }
-                                }
-                            },
-                            tooltip: {
-                                backgroundColor: "rgba(23, 26, 43, 0.95)",
-                                padding: 10,
-                                titleFont: { family: "Plus Jakarta Sans, sans-serif", size: 12, weight: "700" },
-                                bodyFont: { family: "Plus Jakarta Sans, sans-serif", size: 12 },
-                                callbacks: {
-                                    label: function(c) {
-                                        return `${c.dataset.label}: ₹${Number(c.raw || 0).toLocaleString('en-IN')}`;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                grid: { display: false },
-                                ticks: { font: { family: "Plus Jakarta Sans, sans-serif", size: 11 } }
-                            },
-                            y: {
-                                grid: { color: "#f0f1f7" },
-                                ticks: {
-                                    font: { family: "Plus Jakarta Sans, sans-serif", size: 11 },
-                                    callback: function(v) {
-                                        return v >= 1000 ? `₹${v/1000}k` : `₹${v}`;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            window.addEventListener("DOMContentLoaded", renderChart);
-            renderChart();
-
-            const f = document.getElementById("chartFilter");
-            if (f) f.addEventListener("change", renderChart);
-        })();
-    </script>
+    <script src="javascript/graph.js"></script>
+    <script src="javascript/logout.js"></script>
 </body>
 </html>

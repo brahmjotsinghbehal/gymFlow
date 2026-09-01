@@ -8,6 +8,8 @@ if (authStatus === "false") {
 }
 
 
+
+
 const totalRevenue = document.getElementById("totalRevenue")
 const totalExpense = document.getElementById("totalExpense")
 const transactionModal = document.getElementById("transactionModal")
@@ -51,18 +53,9 @@ const renewMembershipBtn = document.getElementById("renewMembershipBtn").addEven
     expiredMembershipModalDashboard.show()
 })
 const saveTransaction = document.getElementById("saveTransaction").addEventListener("click" , ()=>{
-    const amount = document.getElementById("transactionAmount").value
+    const amount = Number(document.getElementById("transactionAmount").value)
     const type = document.getElementById("transactionType").value
     const note = document.getElementById("transactionNote").value.trim()
-    if (amount === "" || note === "") {
-        alert("Please fill in all the fields.")
-        return;
-    }
-    const amountPattern = /^[1-9]\d*$/;
-    if (amount <= 0 || !amountPattern.test(amount)) {
-        alert("Please enter a valid positive amount.");
-        return;
-    }
     const transaction = {
         id: transactionData.length + 1,
         type: type,
@@ -110,30 +103,8 @@ const saveMember = document.getElementById("saveMember").addEventListener("click
     const height = document.getElementById("memberHeight")
     const weight = document.getElementById("memberWeight")
 
-    if (name.value.trim() === "" || email.value.trim() === "" || phone.value.trim() === "" || height.value.trim() === "" || weight.value.trim() === "") {
-        alert("Please fill in all the fields.");
-        return;
-    }
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email.value)) {
-        alert("Please enter a valid email address.");
-        return;
-    }
-    const phonePattern = /^[6-9]\d{9}$/;
-    if (!phonePattern.test(phone.value)) {
-        alert("Please enter a valid phone number.");
-        return;
-    }
-    const heightPattern = /^[1-9]\d*$/;
-    if (!heightPattern.test(height.value) || Number(height.value) < 50 || Number(height.value) > 250) {
-        alert("Please enter a valid positive height.");
-        return;
-    }
-    const weightPattern = /^[1-9]\d*$/;
-    if (!weightPattern.test(weight.value) || Number(weight.value) < 20 || Number(weight.value) > 300) {
-        alert("Please enter a valid positive weight.");
-        return;
-    }
+
+
     const start = new Date(startDate.value)
     const endDate = new Date(start);
     endDate.setMonth(endDate.getMonth()+ Number(type.value))
@@ -240,7 +211,7 @@ function calculateTotalRevenue(){
     let revenue = 0;
     for(let i = 0;i<transactionData.length;i++){
         if(transactionData[i].type==="income"){
-            revenue+=Number(transactionData[i].amount)
+            revenue+=transactionData[i].amount
         }
     }
     totalRevenue.innerHTML=`₹${revenue}`
@@ -270,13 +241,10 @@ function calculateActiveMembers(){
 
 }
 function renewMembership() {
-    const phone = document.getElementById("expiredMembershipDashboardSearch");
-    const phonePattern = /^[6-9]\d{9}$/;
-    if (!phonePattern.test(phone.value.trim())) {
-        alert("Please enter a valid phone number.");
-        return;
-    }
-    const result = document.getElementById("expiredMembershipDashboardResult");
+    const phone =
+        document.getElementById("expiredMembershipDashboardSearch");
+    const result =
+        document.getElementById("expiredMembershipDashboardResult");
     result.innerHTML = "";
     let found = false;
     for (let i = 0; i < memberData.length; i++) {
@@ -334,33 +302,64 @@ function renewMembership() {
 
 const attendanceModalShow = document.getElementById("attendanceModalShow")
 const addAttendanceModalDashboard = document.getElementById("addAttendanceModalDashboard")
-const addAttendanceBtn = document.getElementById("addAttendanceBtn").addEventListener("click", ()=>{
+const addAttendanceSaveButton = document.getElementById("addAttendanceSaveButton")
+
+let selectedMemberIndex = -1
+
+document.getElementById("addAttendanceBtn").addEventListener("click", ()=>{
     addAttendanceModalDashboard.show()
+    
     const attendanceModalInput = document.getElementById("attendanceModalInput")
-    attendanceModalInput.addEventListener("input",()=>{
-        
-        for(let i = 0;i<memberData.length;i++){
-            if(attendanceModalInput.value.trim().length>0 && memberData[i].phone.startsWith(attendanceModalInput.value.trim())){
-                attendanceModalShow.innerHTML= `<h3>${memberData[i].name}</h3>`
-                const addAttendanceSaveButton = document.getElementById("addAttendanceSaveButton")
+    
+    attendanceModalInput.value = ""
+    attendanceModalShow.innerHTML = "Searching..."
+    selectedMemberIndex = -1
 
-                addAttendanceSaveButton.addEventListener("click" , ()=>{
-                    const date = new Date();
-                    memberData[i].attendance.push(date.toISOString().split("T")[0])
-                    localStorage.setItem("memberData" , JSON.stringify(memberData))
-                    addAttendanceModalDashboard.close()
-                    attendanceCount()
-                    return 
-                })
+    attendanceModalInput.addEventListener("input", ()=>{
+        let found = false
 
-            }
-            else if(attendanceModalInput.value.trim().length===0 && attendanceModalInput.value===""){
-                attendanceModalShow.innerHTML=
-                `Searching...`
+        for(let i = 0;i < memberData.length;i++){
+            if(attendanceModalInput.value.trim().length > 0 && memberData[i].phone.startsWith(attendanceModalInput.value.trim())){
+                
+                attendanceModalShow.innerHTML = `<h3>${memberData[i].name}</h3>`
+                selectedMemberIndex = i
+                found = true
+                break
             }
         }
+
+        if(attendanceModalInput.value.trim() === ""){
+            attendanceModalShow.innerHTML = "Searching..."
+            selectedMemberIndex = -1
+        }
+        else if(!found){
+            attendanceModalShow.innerHTML = "No member found"
+            selectedMemberIndex = -1
+        }
     })
+})
+
+addAttendanceSaveButton.addEventListener("click", ()=>{
     
+    if(selectedMemberIndex === -1){
+        alert("Please select a valid member")
+        return
+    }
+
+    const today = new Date().toISOString().split("T")[0]
+
+    if(memberData[selectedMemberIndex].attendance.includes(today)){
+        alert(`Attendance already marked for ${memberData[selectedMemberIndex].name}`)
+        return
+    }
+
+    memberData[selectedMemberIndex].attendance.push(today)
+
+    localStorage.setItem("memberData", JSON.stringify(memberData))
+
+    addAttendanceModalDashboard.close()
+
+    attendanceCount()
 })
 
 function attendanceCount() {
@@ -403,7 +402,7 @@ function followUpRequiredDashboardResult(){
             const hello = document.createElement("div")
             const whatsapp = document.createElement("button")
             whatsapp.innerText = "Send Follow-Up";
-            hello.innerHTML = `${memberData[i].name}'s membership has expired ${x} ago send a <a>s</a>`
+            hello.innerHTML = `${memberData[i].name}'s membership has expired ${x} days ago send a followup message`
             whatsapp.addEventListener("click",()=>{
                 window.open(
                     `https://wa.me/91${memberData[i].phone}?text=${encodeURIComponent(followUpMessage)}`,"_blank")
