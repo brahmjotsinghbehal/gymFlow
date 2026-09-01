@@ -118,7 +118,7 @@
         </div>
         <div class="login-field">
             <label>Password</label>
-            <input type="password" id="password" placeholder="••••••••">
+            <input type="password" id="password" placeholder="Enter Password">
             <div id="passwordError" class="error-message"></div>
         </div>
         <button id="login" class="login-btn" type="button">Sign In to GymFlow</button>
@@ -139,7 +139,6 @@
 
             if (username.value.trim() !== "admin") {
                 usernameError.textContent = "Incorrect username. Please enter the correct username.";
-                alert("Hint: Username is admin");
                 username.value = "";
                 username.focus();
                 return;
@@ -147,7 +146,6 @@
 
             if (password.value.trim() !== "123") {
                 passwordError.textContent = "Incorrect password. Please enter the password again.";
-                alert("Hint: Password is 123");
                 password.value = "";
                 password.focus();
                 return;
