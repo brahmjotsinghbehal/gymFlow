@@ -164,22 +164,22 @@ function makeMemberDisplayCard(i) {
 
             const phone = memberEditModalPhone.value.trim();
             if (!checkPhone(phone)) {
-                memberEditModalPhone.focus();
+                alert("Please enter a valid phone number");
                 return;
             }
             const email = memberEditModalEmail.value.trim();
             if (!checkEmail(email)) {
-                memberEditModalEmail.focus();
+                alert("Please enter a valid email address");
                 return;
             }
             const height = memberEditModalHeight.value.trim();
             if (!checkHeight(height)) {
-                memberEditModalHeight.focus();
+                alert("Please enter a valid height");
                 return;
             }
             const weight = memberEditModalWeight.value.trim();
             if (!checkWeight(weight)) {
-                memberEditModalWeight.focus();
+                alert("Please enter a valid weight");
                 return;
             }
 
@@ -209,7 +209,6 @@ function makeMemberDisplayCard(i) {
 function checkPhone(phone){
     const phonePattern = /^[6-9]\d{9}$/;
     if (phone === "" || !phonePattern.test(phone)) {
-        alert("Please enter a valid phone number");
         return false;
     }
     return true;
@@ -218,7 +217,6 @@ function checkPhone(phone){
 function checkEmail(email){
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === "" || !emailPattern.test(email)) {
-        alert("Please enter a valid email address");
         return false;
     }
     return true;
@@ -227,7 +225,6 @@ function checkEmail(email){
 function checkHeight(height){
     const heightPattern = /^[1-9]\d*$/;
     if (height === "" || !heightPattern.test(height) || Number(height) < 50 || Number(height) > 250) {
-        alert("Please enter a valid height");
         return false;
     }
     return true;
@@ -236,7 +233,6 @@ function checkHeight(height){
 function checkWeight(weight){
     const weightPattern = /^[1-9]\d*$/;
     if (weight === "" || !weightPattern.test(weight) || Number(weight) < 20 || Number(weight) > 300) {
-        alert("Please enter a valid weight");
         return false;
     }
     return true;
