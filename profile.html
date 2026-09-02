@@ -63,7 +63,7 @@
                     <span class="eyebrow-dot"></span>
                     GYMFLOW / PROFILE
                 </div>
-                <h1>Admin Profile</h1>
+                <h1>Under Development</h1>
                 <p>Manage administrator credentials, account preferences and session security.</p>
             </div>
 
@@ -77,91 +77,16 @@
             </div>
         </div>
 
-        <!-- PROFILE LAYOUT -->
-        <div class="profile-layout">
-            <!-- Left: Overview Card -->
-            <div class="profile-overview-card">
-                <div class="profile-avatar-large">B</div>
-                <h3>Brahmjot Singh</h3>
-                <span class="admin-role">GymFlow Administrator</span>
-                <div class="profile-badge-row">
-                    <span class="metric-pill pill-purple"><i class="fa-solid fa-shield-halved"></i> Superadmin</span>
-                    <span class="metric-pill pill-green"><i class="fa-solid fa-circle-check"></i> Verified</span>
-                </div>
-
-                <div class="profile-info-list">
-                    <div class="profile-info-row">
-                        <span>Email</span>
-                        <span>titannovation@gmail.com</span>
-                    </div>
-                    <div class="profile-info-row">
-                        <span>Phone</span>
-                        <span>+91 8525001313</span>
-                    </div>
-                    <div class="profile-info-row">
-                        <span>Member Since</span>
-                        <span>Aug 2026</span>
-                    </div>
-                    <div class="profile-info-row">
-                        <span>Access Level</span>
-                        <span>Full Control</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Edit Form Card -->
-            <div class="profile-edit-card">
-                <div class="profile-edit-header">
-                    <div class="profile-icon-badge"><i class="fa-solid fa-user-pen"></i></div>
-                    <h3>Edit Account Information</h3>
-                </div>
-
-                <div class="member-form" style="margin-top: 10px;">
-                    <div class="form-field">
-                        <label>Full Name</label>
-                        <input type="text" value="Brahmjot Singh">
-                    </div>
-                    <div class="form-field">
-                        <label>Phone Number</label>
-                        <input type="tel" value="8525001313">
-                    </div>
-                    <div class="form-field form-field-full">
-                        <label>Email Address</label>
-                        <input type="email" value="titannovation@gmail.com">
-                    </div>
-                    <div class="form-field">
-                        <label>New Password (Optional)</label>
-                        <input type="password" placeholder="••••••••">
-                    </div>
-                    <div class="form-field">
-                        <label>Confirm Password</label>
-                        <input type="password" placeholder="••••••••">
-                    </div>
-                </div>
-
-                <div class="profile-footer">
-                    <button class="save-member-btn" type="button" onclick="alert('Profile changes saved successfully!')">
-                        <span>Save Profile Changes</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
+       
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const logoutElements = document.querySelectorAll(".logout-item");
-            logoutElements.forEach(el => {
-                el.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    localStorage.setItem("authStatus", "false");
-                    window.location.href = "login.html";
-                });
-            });
-        });
+        const authStatus = localStorage.getItem("authStatus");
+
+        if (authStatus === "false") {
+            window.location.href = "login.html";
+            alert("Make sure to login")
+        }
     </script>
 </body>
 </html>

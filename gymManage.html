@@ -63,7 +63,7 @@
                     <span class="eyebrow-dot"></span>
                     GYMFLOW / SETTINGS
                 </div>
-                <h1>Gym Settings</h1>
+                <h1>Gym Settings - Coming Soon.</h1>
                 <p>Configure gym operating details, membership pricing rules and general preferences.</p>
             </div>
 
@@ -77,85 +77,14 @@
             </div>
         </div>
 
-        <!-- SETTINGS GRID -->
-        <div class="settings-grid">
-            <div class="settings-card">
-                <div>
-                    <div class="settings-card-header">
-                        <div class="settings-icon-badge"><i class="fa-solid fa-dumbbell"></i></div>
-                        <h3>Gym Profile & Location</h3>
-                    </div>
-
-                    <div class="settings-form">
-                        <div class="settings-field">
-                            <label>Gym / Facility Name</label>
-                            <input type="text" value="GymFlow Elite Fitness">
-                        </div>
-                        <div class="settings-field">
-                            <label>Contact Phone</label>
-                            <input type="tel" value="+91 8525001313">
-                        </div>
-                        <div class="settings-field">
-                            <label>Address / City</label>
-                            <input type="text" value="New Delhi, India">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="settings-footer">
-                    <button class="save-member-btn" type="button" onclick="alert('Gym profile updated successfully!')">
-                        <span>Save Facility Details</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="settings-card">
-                <div>
-                    <div class="settings-card-header">
-                        <div class="settings-icon-badge"><i class="fa-solid fa-sliders"></i></div>
-                        <h3>Default Pricing Plans</h3>
-                    </div>
-
-                    <div class="settings-form">
-                        <div class="settings-field">
-                            <label>1 Month Plan (₹)</label>
-                            <input type="number" value="1500">
-                        </div>
-                        <div class="settings-field">
-                            <label>3 Month Plan (₹)</label>
-                            <input type="number" value="3500">
-                        </div>
-                        <div class="settings-field">
-                            <label>1 Year Plan (₹)</label>
-                            <input type="number" value="9000">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="settings-footer">
-                    <button class="save-member-btn" type="button" onclick="alert('Pricing plans updated successfully!')">
-                        <span>Save Pricing Rules</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const logoutElements = document.querySelectorAll(".logout-item");
-            logoutElements.forEach(el => {
-                el.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    localStorage.setItem("authStatus", "false");
-                    window.location.href = "login.html";
-                });
-            });
-        });
+        const authStatus = localStorage.getItem("authStatus");
+
+        if (authStatus === "false") {
+            window.location.href = "login.html";
+            alert("Make sure to login")
+        }
     </script>
 </body>
 </html>

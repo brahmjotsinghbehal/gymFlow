@@ -21,6 +21,7 @@ function displayTransactions(){
             transactionData.splice(i,1)
             localStorage.setItem("transactionData",JSON.stringify(transactionData))
             displayTransactions()
+            updateTxMetrics()
         }) 
         transactionHistoryContainer.appendChild(transactionListElement)
         transactionHistoryContainer.appendChild(deleteButton)

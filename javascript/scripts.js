@@ -343,6 +343,7 @@ addAttendanceSaveButton.addEventListener("click", ()=>{
     
     if(selectedMemberIndex === -1){
         alert("Please select a valid member")
+        
         return
     }
 
@@ -350,6 +351,7 @@ addAttendanceSaveButton.addEventListener("click", ()=>{
 
     if(memberData[selectedMemberIndex].attendance.includes(today)){
         alert(`Attendance already marked for ${memberData[selectedMemberIndex].name}`)
+        attendanceModalInput.value=""
         return
     }
 
